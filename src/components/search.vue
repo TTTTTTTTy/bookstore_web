@@ -61,8 +61,8 @@
               </el-table-column>
             </el-table>
             <el-pagination style="margin-top: 0; padding-top: 0"
-              layout="prev, pager, next" page-size="5"
-              :total="5" hide-on-single-page>
+                           layout="prev, pager, next" page-size="5"
+                           :total="5" hide-on-single-page>
             </el-pagination>
           </el-container>
         </el-container>
@@ -127,29 +127,6 @@
     margin-bottom: 18px;
     float: left;
   }
-  .main_container{
-    background-color: #ffffff;
-    height: 100%;
-    width: 100%;
-    top: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 0;
-    padding-top: 0;
-  }
-
-  .right_main_container{
-    background-color: #ffffff;
-    height: 100%;
-    width: 100%;
-    top: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding-top: 0;
-    padding-left: 20px;
-  }
 
   .form_container{
     background-color: #ffffff;
@@ -162,7 +139,7 @@
   }
 
   .book_container{
-    height: 100px;
+    height: 180px;
     margin-left: 0;
     padding-left: 10px;
     padding-right: 20px;

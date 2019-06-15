@@ -44,38 +44,11 @@
 
 <style lang="less" scoped>
   @import '../style/mixin';
-  .main_container{
-    background-color: #ffffff;
-    height: 100%;
-    width: 100%;
-    top: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 0;
-    padding-top: 0;
-  }
-
-  .right_main_container{
-    background-color: #ffffff;
-    height: 100%;
-    width: 100%;
-    top: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 0;
-    padding-left: 20px;
-  }
 
   .form_container{
     background-color: #ffffff;
     width: 100%;
-    top: 0;
-    float: right;
-    align-items: center;
-    margin-top: 0;
-    padding-top: 15px;
+    padding-top: 20px;
     padding-right: 20px;
   }
 </style>

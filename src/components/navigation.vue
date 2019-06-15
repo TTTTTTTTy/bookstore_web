@@ -9,13 +9,9 @@
       text-color="#fff"
       active-text-color="#ffd04b" router>
       <el-menu-item index="/home">首页</el-menu-item>
-      <el-menu-item index="/register">书籍求购</el-menu-item>
-      <el-menu-item index="/register">发布书籍</el-menu-item>
-      <el-submenu index="4">
-        <template slot="title">订单管理</template>
-        <el-menu-item index="2-1">我购买的</el-menu-item>
-        <el-menu-item index="2-2">我卖出的</el-menu-item>
-      </el-submenu>
+      <el-menu-item index="/purchase/list">书籍求购</el-menu-item>
+      <el-menu-item index="/sell/new">发布书籍</el-menu-item>
+      <el-menu-item index="/order/buy">订单管理</el-menu-item>
     </el-menu>
     <el-dropdown>
       <el-button icon="el-icon-user-solid" circle></el-button>
