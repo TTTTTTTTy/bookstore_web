@@ -5,7 +5,7 @@
         <div class="manage_tip">
           <p>旧书交易网站</p>
         </div>
-        <el-form :model="loginForm" :rules="rules" ref="loginForm">
+        <el-form :model="loginForm" :rules="rules" ref="loginForm" style="padding-top: 5%" v-loading="loading">
           <el-form-item prop="username">
             <el-input v-model="loginForm.username" placeholder="用户名"></el-input>
           </el-form-item>
@@ -13,8 +13,8 @@
             <el-input type="password" placeholder="密码" v-model="loginForm.password"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('loginForm')" class="submit_btn">登陆</el-button>
-            <el-button type="text" class="register_btn">没有账号？立刻注册</el-button>
+            <el-button type="primary" @click="submitClick" class="submit_btn" >登陆</el-button>
+            <el-button type="text" class="register_btn" @click="resg">没有账号？立刻注册</el-button>
           </el-form-item>
         </el-form>
       </section>
@@ -28,8 +28,8 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       rules: {
         username: [
@@ -39,7 +39,36 @@ export default {
           {required: true, message: '请输入密码', trigger: 'blur'}
         ]
       },
-      showLogin: true
+      showLogin: false,
+      loading: false
+    }
+  },
+  mounted(){
+    this.showLogin = true;
+  },
+  methods: {
+    submitClick: function () {
+      this.loading = true;
+      this.postRequest('/login', {
+        username: this.loginForm.username,
+        password: this.loginForm.password
+      }).then(resp=> {
+        this.loading = false;
+        if (resp && resp.status == 200) {
+          var data = resp.data;
+          this.$store.commit('login', data.obj);
+          var path = _this.$route.query.redirect;
+          this.$router
+            .replace({path: path == '/' || path == undefined ? '/home' : path});
+        }
+      });
+    },
+    resg(){
+      //this.$router.push("/cart")
+      //传递的参数用{{ $route.query.goodsId }}获取
+      this.$router.push({path: '/register'})
+      //this.$router.go(-2)
+      //后退两步
     }
   }
 }
@@ -66,7 +95,7 @@ export default {
   }
   }
   .form_contianer{
-  .wh(320px, 180px);
+  .wh(320px, 200px);
   .ctp(320px, 180px);
     .el-form-item {margin-bottom: 25px;}
     padding: 25px;

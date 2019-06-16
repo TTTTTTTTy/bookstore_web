@@ -1,34 +1,36 @@
 <template>
   <div class="register_page">
-    <div class="form_contianer">
-      <el-form :model="registerForm" :rules="rules" ref="registerForm" size="medium">
-        <el-form-item>
-          <p>用户注册</p>
-        </el-form-item>
-        <el-form-item prop="username">
-          <el-input v-model="registerForm.username" placeholder="用户名"></el-input>
-        </el-form-item>
-        <el-form-item prop="realName">
-          <el-input v-model="registerForm.realName" placeholder="真实姓名"></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input type="password" placeholder="密码" v-model="registerForm.password"></el-input>
-        </el-form-item>
-        <el-form-item prop="confirmPassword">
-          <el-input v-model="registerForm.confirmPassword" placeholder="确认密码"></el-input>
-        </el-form-item>
-        <el-form-item prop="email">
-          <el-input v-model="registerForm.email" placeholder="电子邮箱"></el-input>
-        </el-form-item>
-        <el-form-item prop="phone">
-          <el-input v-model="registerForm.phone" placeholder="手机号"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary"  class="register_btn">注册</el-button>
-          <el-button>取消</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
+    <transition name="form-fade" mode="in-out">
+      <section class="form_contianer" v-show="showRes">
+        <el-form :model="registerForm" :rules="rules" ref="registerForm" size="medium" v-loading="loading">
+          <el-form-item>
+            <p>用户注册</p>
+          </el-form-item>
+          <el-form-item prop="username">
+            <el-input v-model="registerForm.username" placeholder="用户名"></el-input>
+          </el-form-item>
+          <el-form-item prop="realName">
+            <el-input v-model="registerForm.realName" placeholder="真实姓名"></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input type="password" placeholder="密码" v-model="registerForm.password"></el-input>
+          </el-form-item>
+          <el-form-item prop="confirmPassword">
+            <el-input v-model="registerForm.confirmPassword" placeholder="确认密码"></el-input>
+          </el-form-item>
+          <el-form-item prop="email">
+            <el-input v-model="registerForm.email" placeholder="电子邮箱"></el-input>
+          </el-form-item>
+          <el-form-item prop="phone">
+            <el-input v-model="registerForm.phone" placeholder="手机号"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary"  class="register_btn" @click="submitClick">注册</el-button>
+            <el-button @click="back">取消</el-button>
+          </el-form-item>
+        </el-form>
+      </section>
+    </transition>
   </div>
 </template>
 
@@ -52,12 +54,12 @@
       };
       return {
         registerForm: {
-          username: '',
-          realName: '',
-          password: '',
-          confirmPassword:'',
-          email:'',
-          phone:''
+          username: 'admin',
+          realName: '汤烨春',
+          password: '123456',
+          confirmPassword:'123456',
+          email:'1461723687@qq.com',
+          phone:'18868111916'
         },
         rules: {
           username: [
@@ -81,7 +83,28 @@
             {validator: checkPhone, trigger: ['blur', 'change']}
           ]
         },
-        showLogin: true
+        showRes: false,
+        loading: false,
+      }
+    },
+    mounted(){
+      this.showRes = true;
+    },
+    methods: {
+      submitClick: function () {
+        this.loading = true;
+        this.postRequest('/user/addUser', this.registerForm).then(resp=> {
+          this.loading = false;
+          if (resp && resp.status == 200) {
+            this.$router.replace('/login');
+          }
+        });
+      },
+      back(){
+        //点击跳转至上次浏览页面
+        this.$router.go(-1)
+        //指定跳转地址
+        //this.$router.replace('/login')
       }
     }
   }
@@ -118,5 +141,12 @@
     font-weight: bold;
     line-height: 15px;
     color: #000000;
+  }
+  .form-fade-enter-active, .form-fade-leave-active {
+    transition: all 1s;
+  }
+  .form-fade-enter, .form-fade-leave-active {
+    transform: translate3d(0, -50px, 0);
+    opacity: 0;
   }
 </style>
