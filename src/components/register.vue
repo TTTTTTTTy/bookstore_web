@@ -9,14 +9,14 @@
           <el-form-item prop="username">
             <el-input v-model="registerForm.username" placeholder="用户名"></el-input>
           </el-form-item>
-          <el-form-item prop="realName">
-            <el-input v-model="registerForm.realName" placeholder="真实姓名"></el-input>
+          <el-form-item prop="realname">
+            <el-input v-model="registerForm.realname" placeholder="真实姓名"></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input type="password" placeholder="密码" v-model="registerForm.password"></el-input>
           </el-form-item>
           <el-form-item prop="confirmPassword">
-            <el-input v-model="registerForm.confirmPassword" placeholder="确认密码"></el-input>
+            <el-input type="password" v-model="registerForm.confirmPassword" placeholder="确认密码"></el-input>
           </el-form-item>
           <el-form-item prop="email">
             <el-input v-model="registerForm.email" placeholder="电子邮箱"></el-input>
@@ -55,7 +55,7 @@
       return {
         registerForm: {
           username: 'admin',
-          realName: '汤烨春',
+          realname: '汤烨春',
           password: '123456',
           confirmPassword:'123456',
           email:'1461723687@qq.com',
@@ -65,7 +65,7 @@
           username: [
             {required: true, message: '请输入用户名', trigger: 'blur'}
           ],
-          realName: [
+          realname: [
             {required: true, message: '请输入真实姓名', trigger: 'blur'}
           ],
           password: [

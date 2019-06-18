@@ -57,18 +57,14 @@ export default {
         if (resp && resp.status == 200) {
           var data = resp.data;
           this.$store.commit('login', data.obj);
-          var path = _this.$route.query.redirect;
+          var path = this.$route.query.redirect;
           this.$router
             .replace({path: path == '/' || path == undefined ? '/home' : path});
         }
       });
     },
     resg(){
-      //this.$router.push("/cart")
-      //传递的参数用{{ $route.query.goodsId }}获取
       this.$router.push({path: '/register'})
-      //this.$router.go(-2)
-      //后退两步
     }
   }
 }

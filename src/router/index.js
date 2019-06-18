@@ -35,12 +35,18 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: home
+      component: home,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/search',
       name: 'search',
-      component: search
+      component: search,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/purchase',
@@ -57,7 +63,10 @@ export default new Router({
           name: '',
           component: purchaseList
         }
-      ]
+      ],
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/sell',
@@ -74,7 +83,10 @@ export default new Router({
           name: '',
           component: sellList
         }
-      ]
+      ],
+      meta: {
+        requireAuth: true
+      }
     }, {
       path: '/order',
       name: '',
@@ -90,7 +102,10 @@ export default new Router({
           name: '',
           component: sellList
         }
-      ]
+      ],
+      meta: {
+        requireAuth: true
+      }
     }
   ]
 })
