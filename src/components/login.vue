@@ -13,7 +13,7 @@
             <el-input type="password" placeholder="密码" v-model="loginForm.password"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitClick" class="submit_btn" >登陆</el-button>
+            <el-button type="primary" @click="submitForm('loginForm')" class="submit_btn" >登陆</el-button>
             <el-button type="text" class="register_btn" @click="resg">没有账号？立刻注册</el-button>
           </el-form-item>
         </el-form>
@@ -47,19 +47,29 @@ export default {
     this.showLogin = true;
   },
   methods: {
-    submitClick: function () {
-      this.loading = true;
-      this.postRequest('/login', {
-        username: this.loginForm.username,
-        password: this.loginForm.password
-      }).then(resp=> {
-        this.loading = false;
-        if (resp && resp.status == 200) {
-          var data = resp.data;
-          this.$store.commit('login', data.obj);
-          var path = this.$route.query.redirect;
-          this.$router
-            .replace({path: path == '/' || path == undefined ? '/home' : path});
+    async submitForm(formName) {
+      this.$refs[formName].validate(async (valid) => {
+        if (valid) {
+          this.loading = true;
+          this.postRequest('/login', {
+            username: this.loginForm.username,
+            password: this.loginForm.password
+          }).then(resp=> {
+            this.loading = false;
+            if (resp && resp.status == 200) {
+              var data = resp.data;
+              this.$store.commit('login', data.obj);
+              var path = this.$route.query.redirect;
+              this.$router
+                .replace({path: path == '/' || path == undefined ? '/home' : path});
+            }
+          });
+        } else {
+          this.$message({
+            type: 'error',
+            message: '请输入用户名和密码'
+          });
+          return false;
         }
       });
     },
@@ -78,7 +88,7 @@ export default {
     height: 100%;
     top:0;
     left:0;
-    background-color: #214457;
+    background-color: #19435c;
   }
   .manage_tip{
     position: absolute;
@@ -105,10 +115,6 @@ export default {
   .register_btn{
     font-size: 12px;
   }
-  }
-  .tip{
-    font-size: 12px;
-    color: red;
   }
   .form-fade-enter-active, .form-fade-leave-active {
     transition: all 1s;

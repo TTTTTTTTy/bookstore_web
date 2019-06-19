@@ -25,7 +25,7 @@
             <el-input v-model="registerForm.phone" placeholder="手机号"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary"  class="register_btn" @click="submitClick">注册</el-button>
+            <el-button type="primary"  class="register_btn" @click="submitClick('registerForm')">注册</el-button>
             <el-button @click="back">取消</el-button>
           </el-form-item>
         </el-form>
@@ -50,6 +50,8 @@
       var checkPhone = (rule, value, callback) => {
         if (!(/^1[34578]\d{9}$/.test(value))) {
           callback(new Error('请输入正确的手机号码'));
+        } else {
+          callback();
         }
       };
       return {
@@ -91,12 +93,21 @@
       this.showRes = true;
     },
     methods: {
-      submitClick: function () {
-        this.loading = true;
-        this.postRequest('/user/addUser', this.registerForm).then(resp=> {
-          this.loading = false;
-          if (resp && resp.status == 200) {
-            this.$router.replace('/login');
+      async submitClick(formName) {
+        this.$refs[formName].validate(async (valid) => {
+          if (!valid) {
+            this.$message({
+              message: '请检查输入',
+              type: 'error',
+            });
+          } else {
+            this.loading = true;
+            this.postRequest('/user/addUser', this.registerForm).then(resp=> {
+              this.loading = false;
+              if (resp && resp.status == 200) {
+                this.$router.replace('/login');
+              }
+            });
           }
         });
       },
@@ -118,7 +129,7 @@
     height: 100%;
     top:0;
     left:0;
-    background-color: #214457;
+    background-color: #19435c;
   }
   .form_contianer{
   .wh(420px, 460px);

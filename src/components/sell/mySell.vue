@@ -1,5 +1,5 @@
 <template>
-  <el-main style="padding-left: 50px; padding-top: 50px">
+  <el-main style="padding-top: 50px">
     <el-table :data="tableData" style="width: 100%">
       <el-table-column label="日期" width="180" sortable>
         <template slot-scope="scope">

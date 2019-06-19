@@ -16,7 +16,7 @@
         </el-header>
         <el-container style="height: 100%; width: 100%" direction="vertical">
           <el-container class="book_container">
-            <img src="../assets/book/1.jpg" width="150" height="150">
+            <img src="https://img3.doubanio.com/view/subject/m/public/s29921533.jpg" width="150" height="150">
             <el-container style="height: 100%; margin-left: 20px">
               <el-header height="30px" style="margin-bottom: 10px">
                 <a href="www.baidu.com" style="font-size: 28px;color: #000000; padding-right: 20px">默读</a>
