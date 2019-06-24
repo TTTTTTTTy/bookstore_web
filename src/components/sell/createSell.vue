@@ -225,7 +225,7 @@
             imageUrl: this.imageUrl
           }).then(resp=> {
             this.loading = false;
-            if (resp && resp.status == 200) {3
+            if (resp && resp.status == 200) {
               this.$router.replace('/sell/my');
             }
           });

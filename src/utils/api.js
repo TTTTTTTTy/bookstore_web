@@ -12,7 +12,9 @@ axios.interceptors.response.use(data => {
     return;
   }
   if (data.data.msg) {
-    Message.success({message: data.data.msg});
+    if(data.data.msg !== "查询成功"){
+      Message.success({message: data.data.msg});
+    }
   }
   return data;
 }, err => {

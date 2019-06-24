@@ -2,7 +2,7 @@
   <el-container class="page" direction="vertical">
     <navigation></navigation>
     <el-container class="main_container">
-      <el-aside width="20%" style="padding-top: 20px">
+      <el-aside width="16%" style="padding-top: 20px">
         <el-menu :default-active="this.$route.path" style="padding-top: 100px" router>
           <el-menu-item index="/purchase/list">
             <i class="el-icon-menu"></i>

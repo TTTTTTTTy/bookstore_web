@@ -1,5 +1,5 @@
 <template>
-  <el-aside width="20%" style="height: 100%">
+  <el-aside width="16%" style="height: 100%">
     <el-menu default-active="1" class="el-menu-vertical-demo" unique-opened="true" style="width: 100%">
       <el-menu-item index="1">教育</el-menu-item>
       <el-menu-item index="2">文学</el-menu-item>
