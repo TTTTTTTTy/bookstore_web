@@ -3,7 +3,7 @@
     <navigation></navigation>
     <el-container class="main_container">
       <el-aside width="16%" style="padding-top: 20px">
-        <el-menu :default-active="this.$route.path" style="padding-top: 150px" router>
+        <el-menu :default-active="this.$oute.path" style="padding-top: 150px" router>
           <el-menu-item index="/order/buy">
             <i class="el-icon-document"></i>
             <span slot="title">我购买的</span>

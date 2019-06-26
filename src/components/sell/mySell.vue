@@ -7,7 +7,7 @@
           <img :src= "scope.row.image" class="pic">
         </template>
       </el-table-column>
-      <el-table-column label="日期" width="140" prop="date"  :formatter="dateFormat" sortable >
+      <el-table-column label="日期" width="140" prop="date"  :formatter="dateFormat" sortable prefix-icon="el-icon-time">
       </el-table-column>
       <el-table-column label="书名" width="160"  show-overflow-tooltip>
         <template slot-scope="scope">

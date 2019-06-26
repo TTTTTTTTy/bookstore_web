@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
-import moment from 'moment'
 import 'element-ui/lib/theme-chalk/index.css'
 import store from './store'
 import {getRequest} from './utils/api'
@@ -26,7 +25,6 @@ router.beforeEach((to, from, next)=> {
       next();
       return;
     }
-    console.log(store.state)
     if (store.state.username === '') { //未登录
       if (to.meta.requireAuth || to.name == null) {
         next({path: '/', query: {redirect: to.path}}) //登录后重定向到此页面
