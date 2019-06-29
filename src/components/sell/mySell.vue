@@ -113,7 +113,6 @@
         }
         return moment(date).format('YYYY-MM-DD')
       },
-
       loadBooks(){
         this.tableLoading = true;
         this.getRequest("/book/userbook/" + this.$store.state.username).then(resp=> {

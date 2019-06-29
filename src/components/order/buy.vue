@@ -1,40 +1,47 @@
 <template>
   <el-main style="padding-left: 50px; padding-top: 50px">
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column label="日期" width="180" sortable>
+    <el-table :data="orders" style="width: 100%" v-loading="loading">
+      <el-table-column label="创建日期" width="140" prop="createDate"  :formatter="dateFormat" sortable>
+      </el-table-column>
+      <el-table-column label="书名" width="220" show-overflow-tooltip>
         <template slot-scope="scope">
-          <i class="el-icon-time"></i>
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+          <span>{{ scope.row.bookname }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="书名" width="240">
+      <el-table-column label="卖家" width="120" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{ scope.row.name }}</span>
+          <span>{{ scope.row.sellerName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="卖家" width="120">
-        <template slot-scope="scope">
-          <span>{{ scope.row.user }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="价格" width="140">
+      <el-table-column label="价格" width="120">
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
             <el-tag size="medium">{{ scope.row.price }}</el-tag>
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="状态" width="120">
+      <el-table-column label="交易方式" width="140">
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
-            <el-tag size="medium" type="success">{{ scope.row.adjust }}</el-tag>
+            <el-tooltip class="item" effect="dark" :content="scope.row.address" placement="top" :disabled="!scope.row.mode">
+              <el-tag size="medium">{{ scope.row.mode?'寄送':'线下交易'}}</el-tag>
+            </el-tooltip>
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="操作" style="padding-left: 20px" align="center">
+      <el-table-column label="状态" width="160">
         <template slot-scope="scope">
-          <el-button size="mini" type="danger"
-                     @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <div slot="reference" class="name-wrapper">
+            <el-tag size="medium" type="success">{{ getState(scope.row.state) }}</el-tag>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" >
+        <template slot-scope="scope">
+          <el-button size="mini" type="success" :disabled="scope.row.state !== 1"
+                     @click="handleConfirm(scope.$index, scope.row)">确认</el-button>
+          <a target="_blank" :href=getQQUrl(scope.row.qq)>
+            <el-button size="mini"  style="margin-left: 10px" @click="handleDelete(scope.$index, scope.row)">联系卖家</el-button></a>
         </template>
       </el-table-column>
     </el-table>
@@ -43,39 +50,63 @@
 
 <script>
   import navigation from "@/components/navigation";
+  import moment from 'moment'
 
   export default {
-    name: 'myPurchase',
+    name: 'buy',
     data() {
       return {
-        tableData: [{
-          date: '2016-05-02',
-          name: '计算机网络',
-          user: 'Amy',
-          price: '41.00',
-          adjust: '已完成'
-        }, {
-          date: '2016-05-04',
-          name: '编译原理及实践',
-          user: 'Peter',
-          price: '34.00',
-          adjust: '未完成'
-        }, {
-          date: '2016-05-01',
-          name: 'JAVA基础',
-          user: 'Wang',
-          price: '37.00',
-          adjust: '已完成'
-        }]
+        loading: false,
+        orders:[],
       }
     },
     methods: {
+      loadOrders(username){
+        this.loading = true;
+        this.getRequest("/order/buyer/" + username).then(resp=> {
+          if (resp && resp.status == 200) {
+            this.orders = resp.data;
+          }
+          this.loading = false;
+        });
+      },
+      dateFormat(row, column) {
+        const date = row[column.property]
+        if (date === undefined) {
+          return ''
+        }
+        return moment(date).format('YYYY-MM-DD')
+      },
       handleEdit(key, keyPath) {
         console.log(key, keyPath);
+      },
+      getState(state) {
+        if(state === 0) {
+          return '等待卖家确认';
+        } else if(state === 1) {
+          return '等待买家确认';
+        } else if(state === 2) {
+          return '已完成';
+        }
+      },
+      getQQUrl(qq) {
+        return "http://wpa.qq.com/msgrd?v=3&uin=" + qq + "&site=qq&menu=yes"
+      },
+      handleConfirm(index, row) {
+        this.loading = true;
+        this.putRequest("/order/buyer/" + row.id).then(resp=> {
+          if (resp && resp.status == 200) {
+            this.loadOrders(this.$store.state.username);
+          }
+          this.loading = false;
+        });
       }
     },
     components: {
       navigation
+    },
+    mounted: function () {
+      this.loadOrders(this.$store.state.username);
     }
   }
 </script>

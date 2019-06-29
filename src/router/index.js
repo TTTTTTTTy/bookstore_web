@@ -3,16 +3,20 @@ import Router from 'vue-router'
 import login from '@/components/login'
 import register from '@/components/register'
 import home from '@/components/home'
+import book from "../components/book";
+import search from "../components/search";
 import purchase from "@/components/purchase/purchase";
 import myPurchase from "@/components/purchase/myPurchase";
 import purchaseList from "../components/purchase/purchaseList";
 import sell from "@/components/sell/sell";
 import mySell from "@/components/sell/mySell";
-import sellList from "@/components/sell/createSell";
+import createSell from "@/components/sell/createSell";
 import buy from "@/components/order/buy";
 import order from "@/components/order/order";
-import book from "../components/book";
-import search from "../components/search";
+import sellList from "../components/order/sellList";
+import createOrder from "../components/order/createOrder";
+import newPurchase from "@/components/purchase/newPurchase";
+import chat from "../components/chat";
 
 Vue.use(Router)
 
@@ -37,6 +41,14 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: home,
+      meta: {
+        requireAuth: true,
+      }
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: chat,
       meta: {
         requireAuth: true,
       }
@@ -71,6 +83,11 @@ export default new Router({
           path: 'list',
           name: '',
           component: purchaseList
+        },
+        {
+          path: 'new',
+          name: '',
+          component: newPurchase
         }
       ],
       meta: {
@@ -84,19 +101,28 @@ export default new Router({
       children:[
         {
           path: 'my',
-          name: '',
+          name: 'mySell',
           component: mySell
         },
         {
           path: 'new',
-          name: '',
-          component: sellList
+          name: 'createSell',
+          component: createSell
         }
       ],
       meta: {
         requireAuth: true
       }
-    }, {
+    },
+    {
+      path: '/newOrder',
+      name: 'newOrder',
+      component: createOrder,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
       path: '/order',
       name: '',
       component: order,

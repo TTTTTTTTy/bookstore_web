@@ -37,7 +37,7 @@
           <el-input placeholder="输入售价" v-model="sellForm.sellPrice"></el-input>
         </el-form-item>
         <el-form-item label="商品描述：">
-          <el-input placeholder="不超过150个字" v-model="sellForm.description" type="textarea" :rows="4"  maxlength="100" show-word-limit></el-input>
+          <el-input placeholder="输入商品描述，不超过100个字" v-model="sellForm.description" type="textarea" :rows="4"  maxlength="100" show-word-limit></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="lastStep" class="submit_btn">上一步</el-button>

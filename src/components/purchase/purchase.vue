@@ -8,7 +8,7 @@
             <i class="el-icon-menu"></i>
             <span slot="title">求购信息</span>
           </el-menu-item>
-          <el-menu-item index="/register">
+          <el-menu-item index="/purchase/new">
             <i class="el-icon-document"></i>
             <span slot="title">发布求购</span>
           </el-menu-item>

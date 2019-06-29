@@ -114,8 +114,6 @@
       bookList
     },
     mounted: function () {
-      console.log("2");
-      console.log(this.$route.params.index);
       if(this.$route.params.index !== undefined){
         this.loadBook(this.$route.params.index);
       } else {

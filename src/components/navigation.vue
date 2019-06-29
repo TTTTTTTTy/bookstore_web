@@ -16,8 +16,7 @@
     <el-dropdown @command="handleCommand">
       <el-button icon="el-icon-user-solid" circle></el-button>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="home">个人资料</el-dropdown-item>
-        <el-dropdown-item command="home">消息中心</el-dropdown-item>
+        <el-dropdown-item command="chat">聊天设置</el-dropdown-item>
         <el-dropdown-item command="logout">注销</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -45,12 +44,9 @@
             this.getRequest("/logout");
             this.$store.commit('logout');
             this.$router.replace({path: '/'});
-          }).catch(() => {
-              this.$message({
-              type: 'info',
-              message: '取消'
-            });
-          });
+          })
+        } else if(command == 'chat') {
+          this.$router.push("/chat");
         }
       }
     }

@@ -105,6 +105,11 @@
             this.postRequest('/user/addUser', this.registerForm).then(resp=> {
               this.loading = false;
               if (resp && resp.status == 200) {
+                this.$notify({
+                  title: '提示',
+                  message: '登录后请先点击右上角前往聊天设置，根据提示完成相关操作，就能和其他用户聊天了哦~',
+                  duration: 0
+                });
                 this.$router.replace('/login');
               }
             });

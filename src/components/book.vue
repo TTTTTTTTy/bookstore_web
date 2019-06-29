@@ -51,10 +51,11 @@
               </el-table-column>
               <el-table-column label="操作" style="padding-left: 20px" align="center">
                 <template slot-scope="scope">
+                  <a target="_blank" :href=getQQUrl(scope.row.qq)>
                   <el-button size="mini" style="margin-left: 20px"
-                             @click="handleEdit(scope.$index, scope.row)">联系卖家</el-button>
-                  <el-button size="mini" type="primary"
-                             @click="handleDelete(scope.$index, scope.row)">立刻购买</el-button>
+                             @click="handleEdit(scope.$index, scope.row)">联系卖家</el-button></a>
+                  <el-button size="mini" type="primary" style="margin-left: 10px"
+                             @click="handleBuy(scope.$index, scope.row)">立刻购买</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -101,9 +102,19 @@
       num2(i){
         return i.toFixed(2);
       },
-      handleEdit(key, keyPath) {
-        console.log(key, keyPath);
-      }
+      getQQUrl(qq) {
+        return "http://wpa.qq.com/msgrd?v=3&uin=" + qq + "&site=qq&menu=yes"
+      },
+      handleBuy(index, row) {
+        if(row.username === this.$store.state.username){
+          this.$message({
+            message: '不能购买自己发布的书籍',
+            type: 'error',
+          });
+          return false;
+        }
+        this.$router.push({name:'newOrder', params: {id: row.id, bookname: this.book.bookname}});
+      },
     },
     components: {
       navigation,
