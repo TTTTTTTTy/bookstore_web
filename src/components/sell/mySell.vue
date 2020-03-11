@@ -37,9 +37,9 @@
       </el-table-column>
       <el-table-column label=""  fixed="right">
         <template slot-scope="scope">
-          <el-button size="mini"  :disabled="scope.row.state === 'true'"
+          <el-button size="mini"  :disabled="scope.row.state"
                      @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" :disabled="scope.row.state === 'true'"
+          <el-button size="mini" type="danger" :disabled="scope.row.state"
                      @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>

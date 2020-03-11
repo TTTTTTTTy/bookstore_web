@@ -46,7 +46,7 @@
           <el-button size="mini" type="success" :disabled="scope.row.state !== 0"
                      @click="handleConfirm(scope.$index, scope.row)">确认</el-button>
           <a target="_blank" :href=getQQUrl(scope.row.qq)>
-            <el-button size="mini" style="margin-left: 10px"  @click="handleDelete(scope.$index, scope.row)">联系买家</el-button></a>
+            <el-button size="mini" style="margin-left: 10px">联系买家</el-button></a>
         </template>
       </el-table-column>
     </el-table>

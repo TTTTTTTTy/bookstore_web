@@ -104,7 +104,6 @@
           address: [
             {message: '请填写详细地址', trigger: 'change' }
           ],
-
         },
       }
     },
